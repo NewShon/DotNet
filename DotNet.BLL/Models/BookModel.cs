@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DotNet.DAL.Entities
+namespace DotNet.BLL.Models
 {
     public class BookModel
     {

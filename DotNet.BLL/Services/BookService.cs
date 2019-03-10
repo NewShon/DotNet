@@ -1,12 +1,19 @@
 ﻿using System;
 using DotNet.BLL.Interfaces;
-using DotNet.DAL.Entities;
+using DotNet.BLL.Models;
 using System.Collections.Generic;
 
 namespace DotNet.BLL.Services
 {
     public class BookService : IBookService<BookModel>
     {
+        private List<BookModel> books = new List<BookModel>
+        {
+            new BookModel { Name = "Anarchy of decay" },
+            new BookModel { Name = "Illusion of freedom" },
+            new BookModel { Name = "Legendary moonlight sculptor" }
+        };
+
         public void Create()
         {
             throw new NotImplementedException();
@@ -24,7 +31,7 @@ namespace DotNet.BLL.Services
 
         public BookModel Get()
         {
-            throw new NotImplementedException();
+            return books[0];
         }
 
         public IEnumerable<BookModel> GetAll()

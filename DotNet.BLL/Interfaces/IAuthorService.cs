@@ -2,7 +2,7 @@
 
 namespace DotNet.BLL.Interfaces
 {
-    interface IAuthorService<T> : IService<T>
+    public interface IAuthorService<T> : IService<T>
     {
     }
 }

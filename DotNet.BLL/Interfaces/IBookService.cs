@@ -2,7 +2,7 @@
 
 namespace DotNet.BLL.Interfaces
 {
-    interface IBookService<T> : IService<T>
+    public interface IBookService<T> : IService<T>
     {
     }
 }

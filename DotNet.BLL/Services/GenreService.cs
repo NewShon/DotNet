@@ -1,6 +1,6 @@
 ﻿using System;
 using DotNet.BLL.Interfaces;
-using DotNet.DAL.Entities;
+using DotNet.BLL.Models;
 using System.Collections.Generic;
 
 namespace DotNet.BLL.Services

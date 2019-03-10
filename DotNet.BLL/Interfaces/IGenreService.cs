@@ -2,7 +2,7 @@
 
 namespace DotNet.BLL.Interfaces
 {
-    interface IGenreService<T> : IService<T>
+    public interface IGenreService<T> : IService<T>
     {
     }
 }

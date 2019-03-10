@@ -7,6 +7,7 @@ namespace DotNet.DAL.Repositories
 {
     public class BookRepository : IRepository<Book>
     {
+
         public void Create()
         {
             throw new NotImplementedException();

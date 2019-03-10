@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DotNet.BLL.Interfaces;
+using DotNet.BLL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,6 +11,14 @@ namespace DotNet.WEB.Controllers
 {
     public class BookController : ApiController
     {
+        private IBookService<BookModel> bookService;
+
+        public BookController(IBookService<BookModel> bookService)
+        {
+            this.bookService = bookService;
+        }
+
+
         // GET: api/Book
         public IEnumerable<string> Get()
         {
@@ -16,9 +26,9 @@ namespace DotNet.WEB.Controllers
         }
 
         // GET: api/Book/5
-        public string Get(int id)
+        public BookModel Get(int id)
         {
-            return "value";
+            return bookService.Get();
         }
 
         // POST: api/Book

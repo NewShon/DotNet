@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DotNet.BLL.Interfaces.Base
 {
-    interface IService<T>
+    public interface IService<T>
     {
         IEnumerable<T> GetAll();
 
