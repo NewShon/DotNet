@@ -22,7 +22,7 @@ namespace DotNet.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Author Get()
+        public Author Get(int id)
         {
             throw new NotImplementedException();
         }

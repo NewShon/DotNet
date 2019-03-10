@@ -6,6 +6,7 @@ namespace DotNet.WEB.App_Start
     using System;
     using System.Web;
     using System.Web.Http;
+    using DotNet.BLL.Config;
     using DotNet.BLL.Interfaces;
     using DotNet.BLL.Models;
     using DotNet.BLL.Services;
@@ -70,7 +71,7 @@ namespace DotNet.WEB.App_Start
             kernel.Bind<IAuthorService<AuthorModel>>().To<AuthorService>();
             kernel.Bind<IGenreService<GenreModel>>().To<GenreService>();
 
-            //kernel.Bind<IRepository<Book>>().To<BookRepository>();
+            NinjectConfig.AddBindings(kernel);
         }        
     }
 }

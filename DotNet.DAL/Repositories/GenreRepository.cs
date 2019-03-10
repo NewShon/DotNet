@@ -22,7 +22,7 @@ namespace DotNet.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Genre Get()
+        public Genre Get(int id)
         {
             throw new NotImplementedException();
         }

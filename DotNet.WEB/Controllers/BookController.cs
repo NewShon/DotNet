@@ -1,5 +1,6 @@
 ﻿using DotNet.BLL.Interfaces;
 using DotNet.BLL.Models;
+using DotNet.WEB.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,22 +14,26 @@ namespace DotNet.WEB.Controllers
     {
         private IBookService<BookModel> bookService;
 
+
         public BookController(IBookService<BookModel> bookService)
         {
             this.bookService = bookService;
         }
 
 
+
         // GET: api/Book
-        public IEnumerable<string> Get()
+        public IEnumerable<BookViewModel> Get()
         {
-            return new string[] { "value1", "value2" };
+            var result = bookService.GetAll();
+            return AutoMapper.Mapper.Map<List<BookViewModel>>(result);
         }
 
         // GET: api/Book/5
-        public BookModel Get(int id)
+        public BookViewModel Get(int id)
         {
-            return bookService.Get();
+            var result = bookService.Get(id);
+            return AutoMapper.Mapper.Map<BookViewModel>(result);
         }
 
         // POST: api/Book

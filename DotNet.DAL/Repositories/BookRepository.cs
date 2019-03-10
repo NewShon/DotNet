@@ -7,6 +7,13 @@ namespace DotNet.DAL.Repositories
 {
     public class BookRepository : IRepository<Book>
     {
+        private List<Book> books = new List<Book>
+        {
+            new Book{ Name = "Anarchy of decay" },
+            new Book { Name = "Illusion of freedom" },
+            new Book { Name = "Legendary moonlight sculptor" }
+        };
+
 
         public void Create()
         {
@@ -23,14 +30,14 @@ namespace DotNet.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Book Get()
+        public Book Get(int id)
         {
-            throw new NotImplementedException();
+            return books[id];
         }
 
         public IEnumerable<Book> GetAll()
         {
-            throw new NotImplementedException();
+            return books;
         }
 
         public void Update()

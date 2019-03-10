@@ -2,17 +2,22 @@
 using DotNet.BLL.Interfaces;
 using DotNet.BLL.Models;
 using System.Collections.Generic;
+using DotNet.DAL.Interfaces;
+using DotNet.DAL.Entities;
 
 namespace DotNet.BLL.Services
 {
     public class BookService : IBookService<BookModel>
     {
-        private List<BookModel> books = new List<BookModel>
+        private IRepository<Book> bookRepository;
+
+
+        public BookService(IRepository<Book> bookRepository)
         {
-            new BookModel { Name = "Anarchy of decay" },
-            new BookModel { Name = "Illusion of freedom" },
-            new BookModel { Name = "Legendary moonlight sculptor" }
-        };
+            this.bookRepository = bookRepository;
+        }
+
+
 
         public void Create()
         {
@@ -29,14 +34,16 @@ namespace DotNet.BLL.Services
             throw new NotImplementedException();
         }
 
-        public BookModel Get()
+        public BookModel Get(int id)
         {
-            return books[0];
+            var result = bookRepository.Get(id);
+            return AutoMapper.Mapper.Map<BookModel>(result);
         }
 
         public IEnumerable<BookModel> GetAll()
         {
-            throw new NotImplementedException();
+            var result = bookRepository.GetAll();
+            return AutoMapper.Mapper.Map<List<BookModel>>(result);
         }
 
         public void Update()

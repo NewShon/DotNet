@@ -22,7 +22,7 @@ namespace DotNet.BLL.Services
             throw new NotImplementedException();
         }
 
-        public AuthorModel Get()
+        public AuthorModel Get(int id)
         {
             throw new NotImplementedException();
         }

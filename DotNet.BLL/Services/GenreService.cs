@@ -22,7 +22,7 @@ namespace DotNet.BLL.Services
             throw new NotImplementedException();
         }
 
-        public GenreModel Get()
+        public GenreModel Get(int id)
         {
             throw new NotImplementedException();
         }
