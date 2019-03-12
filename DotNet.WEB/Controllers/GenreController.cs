@@ -1,14 +1,23 @@
-﻿using System;
+﻿using DotNet.BLL.Interfaces;
+using DotNet.BLL.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DotNet.WEB.Controllers
 {
     public class GenreController : ApiController
     {
+
+        private IService<GenreModel> genreService;
+
+
+        public GenreController(IService<GenreModel> genreService)
+        {
+            this.genreService = genreService;
+        }
+
+
+
         // GET: api/Genre
         public IEnumerable<string> Get()
         {

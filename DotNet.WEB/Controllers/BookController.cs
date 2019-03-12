@@ -1,21 +1,18 @@
 ﻿using DotNet.BLL.Interfaces;
 using DotNet.BLL.Models;
 using DotNet.WEB.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace DotNet.WEB.Controllers
 {
     public class BookController : ApiController
     {
-        private IBookService<BookModel> bookService;
+
+        private IService<BookModel> bookService;
 
 
-        public BookController(IBookService<BookModel> bookService)
+        public BookController(IService<BookModel> bookService)
         {
             this.bookService = bookService;
         }

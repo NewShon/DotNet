@@ -12,6 +12,8 @@ namespace DotNet.WEB.App_Start
             Mapper.Initialize((config) =>
             {
                 config.CreateMap<BookViewModel, BookModel>().ReverseMap();
+                config.CreateMap<AuthorViewModel, AuthorModel>().ReverseMap();
+                config.CreateMap<GenreViewModel, GenreModel>().ReverseMap();
 
                 MapperConfig.Initialize(config);
             });

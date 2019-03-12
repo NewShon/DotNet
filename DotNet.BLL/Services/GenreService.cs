@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace DotNet.BLL.Services
 {
-    public class GenreService : IGenreService<GenreModel>
+    public class GenreService : IService<GenreModel>
     {
         public void Create()
         {

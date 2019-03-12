@@ -1,17 +1,19 @@
-﻿using DotNet.DAL.Entities;
-using DotNet.DAL.Interfaces;
-using DotNet.DAL.Repositories;
+﻿using DotNet.BLL.Interfaces;
+using DotNet.BLL.Models;
+using DotNet.BLL.Services;
 using Ninject;
 
 namespace DotNet.BLL.Config
 {
     public static class NinjectConfig
     {
-        public static void AddBindings(IKernel kernel)
+        public static void Register(IKernel kernel)
         {
-            kernel.Bind<IRepository<Book>>().To<BookRepository>();
-            kernel.Bind<IRepository<Author>>().To<AuthorRepository>();
-            kernel.Bind<IRepository<Genre>>().To<GenreRepository>();
+            kernel.Bind<IService<BookModel>>().To<BookService>();
+            kernel.Bind<IService<AuthorModel>>().To<AuthorService>();
+            kernel.Bind<IService<GenreModel>>().To<GenreService>();
+
+            DAL.Config.NinjectConfig.Register(kernel);
         }
     }
 }

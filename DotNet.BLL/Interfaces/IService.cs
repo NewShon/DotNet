@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace DotNet.BLL.Interfaces.Base
+namespace DotNet.BLL.Interfaces
 {
     public interface IService<T>
     {
@@ -10,7 +9,7 @@ namespace DotNet.BLL.Interfaces.Base
 
         T Get(int id);
 
-        IEnumerable<T> Find(Func<T, Boolean> predicate);
+        IEnumerable<T> Find(Func<T, bool> predicate);
 
         void Create();
 

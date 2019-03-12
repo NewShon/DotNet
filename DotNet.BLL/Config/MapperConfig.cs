@@ -9,6 +9,8 @@ namespace DotNet.BLL.Config
         public static void Initialize(IMapperConfigurationExpression config)
         {
             config.CreateMap<BookModel, Book>().ReverseMap();
+            config.CreateMap<AuthorModel, Author>().ReverseMap();
+            config.CreateMap<GenreModel, Genre>().ReverseMap();
         }
     }
 }

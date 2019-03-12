@@ -7,7 +7,7 @@ using DotNet.DAL.Entities;
 
 namespace DotNet.BLL.Services
 {
-    public class BookService : IBookService<BookModel>
+    public class BookService : IService<BookModel>
     {
         private IRepository<Book> bookRepository;
 

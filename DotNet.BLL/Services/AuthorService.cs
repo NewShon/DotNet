@@ -5,7 +5,7 @@ using DotNet.BLL.Models;
 
 namespace DotNet.BLL.Services
 {
-    public class AuthorService : IAuthorService<AuthorModel>
+    public class AuthorService : IService<AuthorModel>
     {
         public void Create()
         {
