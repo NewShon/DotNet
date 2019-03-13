@@ -7,14 +7,14 @@ namespace DotNet.DAL.Interfaces
     {
         IEnumerable<T> GetAll();
 
-        T Get(int id);
+        T Get(Func<T, Boolean> predicate);
 
         IEnumerable<T> Find(Func<T, Boolean> predicate);
 
-        void Create();
+        void Create(T entity);
 
-        void Update();
+        void Update(Func<T, Boolean> predicate, T entity);
 
-        void Delete();
+        void Delete(Func<T, Boolean> predicate);
     }
 }

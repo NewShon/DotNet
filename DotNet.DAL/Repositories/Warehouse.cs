@@ -1,7 +1,5 @@
 ﻿using DotNet.DAL.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DotNet.DAL.Repositories
 {

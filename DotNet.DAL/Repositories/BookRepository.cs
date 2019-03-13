@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
 
@@ -7,24 +8,29 @@ namespace DotNet.DAL.Repositories
 {
     public class BookRepository : IRepository<Book>
     {
-        public void Create()
+        public void Create(Book book)
         {
-            throw new NotImplementedException();
+            Warehouse.Books.Add(book);
         }
 
-        public void Delete()
+        public void Delete(Func<Book, bool> predicate)
         {
-            throw new NotImplementedException();
+	        var booksForDelete = Warehouse.Books.Where(predicate);
+	        foreach (var book in booksForDelete)
+	        {
+		        Warehouse.Books.Remove(book);
+
+			}
         }
 
         public IEnumerable<Book> Find(Func<Book, bool> predicate)
         {
-            throw new NotImplementedException();
+	        return Warehouse.Books.Where(predicate);
         }
 
-        public Book Get(int id)
+        public Book Get(Func<Book, bool> predicate)
         {
-            return Warehouse.Books[id];
+            return Warehouse.Books.Where(predicate).FirstOrDefault();
         }
 
         public IEnumerable<Book> GetAll()
@@ -32,9 +38,16 @@ namespace DotNet.DAL.Repositories
             return Warehouse.Books;
         }
 
-        public void Update()
+        public void Update(Func<Book, bool> predicate, Book book)
         {
-            throw new NotImplementedException();
+			var bookForUpdate = Warehouse.Books.Where(predicate).FirstOrDefault();
+	        if (bookForUpdate != null)
+	        {
+		        bookForUpdate.Name = book.Name;
+		        bookForUpdate.Authors = book.Authors;
+		        bookForUpdate.Description = book.Description;
+		        bookForUpdate.Genres = book.Genres;
+	        }
         }
     }
 }
