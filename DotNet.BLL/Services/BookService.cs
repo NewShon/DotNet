@@ -36,7 +36,7 @@ namespace DotNet.BLL.Services
 
         public BookModel Get(int id)
         {
-            var result = bookRepository.Get(id);
+            var result = bookRepository.Get(model => model.Id == id);
             return AutoMapper.Mapper.Map<BookModel>(result);
         }
 
