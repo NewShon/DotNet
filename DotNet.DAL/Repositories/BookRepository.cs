@@ -19,7 +19,6 @@ namespace DotNet.DAL.Repositories
 	        foreach (var book in booksForDelete)
 	        {
 		        Warehouse.Books.Remove(book);
-
 			}
         }
 
