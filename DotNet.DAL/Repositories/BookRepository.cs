@@ -34,7 +34,8 @@ namespace DotNet.DAL.Repositories
 
         public IEnumerable<Book> GetAll()
         {
-            return Warehouse.Books;
+            var x = Warehouse.Books;
+            return x;
         }
 
         public void Update(Func<Book, bool> predicate, Book book)

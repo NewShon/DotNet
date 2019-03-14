@@ -9,10 +9,10 @@ namespace DotNet.WEB.Controllers
     public class BookController : ApiController
     {
 
-        private IService<BookModel> bookService;
+        private IBookService bookService;
 
 
-        public BookController(IService<BookModel> bookService)
+        public BookController(IBookService bookService)
         {
             this.bookService = bookService;
         }

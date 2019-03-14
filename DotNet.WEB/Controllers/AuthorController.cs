@@ -8,10 +8,10 @@ namespace DotNet.WEB.Controllers
     public class AuthorController : ApiController
     {
 
-        private IService<AuthorModel> authorService;
+        private IAuthorService authorService;
 
 
-        public AuthorController(IService<AuthorModel> authorService)
+        public AuthorController(IAuthorService authorService)
         {
             this.authorService = authorService;
         }

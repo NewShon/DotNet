@@ -8,10 +8,10 @@ namespace DotNet.WEB.Controllers
     public class GenreController : ApiController
     {
 
-        private IService<GenreModel> genreService;
+        private IGenreService genreService;
 
 
-        public GenreController(IService<GenreModel> genreService)
+        public GenreController(IGenreService genreService)
         {
             this.genreService = genreService;
         }

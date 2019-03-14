@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DotNet.BLL.Interfaces
+namespace DotNet.BLL.Interfaces.Base
 {
     public interface IService<T>
     {

@@ -9,9 +9,9 @@ namespace DotNet.BLL.Config
     {
         public static void Register(IKernel kernel)
         {
-            kernel.Bind<IService<BookModel>>().To<BookService>();
-            kernel.Bind<IService<AuthorModel>>().To<AuthorService>();
-            kernel.Bind<IService<GenreModel>>().To<GenreService>();
+            kernel.Bind<IBookService>().To<BookService>();
+            kernel.Bind<IAuthorService>().To<AuthorService>();
+            kernel.Bind<IGenreService>().To<GenreService>();
 
             DAL.Config.NinjectConfig.Register(kernel);
         }
