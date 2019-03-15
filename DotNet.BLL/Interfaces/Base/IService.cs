@@ -9,12 +9,12 @@ namespace DotNet.BLL.Interfaces.Base
 
         T Get(int id);
 
-        IEnumerable<T> Find(Func<T, bool> predicate);
+        IEnumerable<T> Find(T entity);
 
-        void Create();
+        void Create(T entity);
 
-        void Update();
+        void Update(T entity);
 
-        void Delete();
+        void Delete(T entity);
     }
 }

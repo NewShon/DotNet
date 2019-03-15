@@ -1,9 +1,9 @@
-﻿using System;
-using DotNet.BLL.Interfaces;
+﻿using DotNet.BLL.Interfaces;
 using DotNet.BLL.Models;
 using System.Collections.Generic;
 using DotNet.DAL.Interfaces;
 using DotNet.DAL.Entities;
+using AutoMapper;
 
 namespace DotNet.BLL.Services
 {
@@ -19,36 +19,39 @@ namespace DotNet.BLL.Services
 
 
 
-        public void Create()
+        public void Create(BookModel book)
         {
-            throw new NotImplementedException();
+	        var model = Mapper.Map<Book>(book);
+            bookRepository.Create(model);
         }
 
-        public void Delete()
+        public void Delete(BookModel book)
         {
-            throw new NotImplementedException();
-        }
+	        bookRepository.Delete(b => b.Id == book.Id);
+		}
 
-        public IEnumerable<BookModel> Find(Func<BookModel, bool> predicate)
+        public IEnumerable<BookModel> Find(BookModel book)
         {
-            throw new NotImplementedException();
+			var result = bookRepository.Find(b => b.Id == book.Id);
+	        return Mapper.Map<IEnumerable<BookModel>>(result);
         }
 
         public BookModel Get(int id)
         {
             var result = bookRepository.Get(model => model.Id == id);
-            return AutoMapper.Mapper.Map<BookModel>(result);
+            return Mapper.Map<BookModel>(result);
         }
 
         public IEnumerable<BookModel> GetAll()
         {
             var result = bookRepository.GetAll();
-            return AutoMapper.Mapper.Map<List<BookModel>>(result);
+            return Mapper.Map<IEnumerable<BookModel>>(result);
         }
 
-        public void Update()
+        public void Update(BookModel book)
         {
-            throw new NotImplementedException();
-        }
+	        var model = Mapper.Map<Book>(book);
+			bookRepository.Update(b => b.Id == book.Id, model);
+		}
     }
 }

@@ -2,6 +2,8 @@
 using DotNet.BLL.Models;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
+using DotNet.WEB.Models;
 
 namespace DotNet.WEB.Controllers
 {
@@ -18,31 +20,39 @@ namespace DotNet.WEB.Controllers
 
 
 
-        // GET: api/Genre
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+		// GET: api/Genre
+	    public IEnumerable<GenreViewModel> Get()
+	    {
+		    var result = genreService.GetAll();
+		    return Mapper.Map<List<GenreViewModel>>(result);
+	    }
 
-        // GET: api/Genre/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+		// GET: api/Genre/5
+		public GenreViewModel Get(int id)
+	    {
+		    var result = genreService.Get(id);
+		    return Mapper.Map<GenreViewModel>(result);
+	    }
 
-        // POST: api/Genre
-        public void Post([FromBody]string value)
-        {
-        }
+		// POST: api/Genre
+		public void Post(GenreViewModel genre)
+	    {
+		    var model = Mapper.Map<GenreModel>(genre);
+		    genreService.Create(model);
+	    }
 
-        // PUT: api/Genre/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		// PUT: api/Genre/5
+		public void Put(GenreViewModel genre)
+	    {
+		    var model = Mapper.Map<GenreModel>(genre);
+		    genreService.Update(model);
+	    }
 
-        // DELETE: api/Genre/5
-        public void Delete(int id)
-        {
-        }
-    }
+		// DELETE: api/Genre/5
+		public void Delete(GenreViewModel genre)
+	    {
+		    var model = Mapper.Map<GenreModel>(genre);
+		    genreService.Delete(model);
+	    }
+	}
 }

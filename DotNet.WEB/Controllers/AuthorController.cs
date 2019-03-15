@@ -2,6 +2,8 @@
 using DotNet.BLL.Models;
 using System.Collections.Generic;
 using System.Web.Http;
+using AutoMapper;
+using DotNet.WEB.Models;
 
 namespace DotNet.WEB.Controllers
 {
@@ -17,32 +19,40 @@ namespace DotNet.WEB.Controllers
         }
 
 
-        
-        // GET: api/Author
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET: api/Author/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+		// GET: api/Author
+	    public IEnumerable<AuthorViewModel> Get()
+	    {
+		    var result = authorService.GetAll();
+		    return Mapper.Map<List<AuthorViewModel>>(result);
+	    }
 
-        // POST: api/Author
-        public void Post([FromBody]string value)
-        {
-        }
+		// GET: api/Author/5
+		public AuthorViewModel Get(int id)
+	    {
+		    var result = authorService.Get(id);
+		    return Mapper.Map<AuthorViewModel>(result);
+	    }
 
-        // PUT: api/Author/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		// POST: api/Author
+		public void Post(AuthorViewModel author)
+	    {
+		    var model = Mapper.Map<AuthorModel>(author);
+		    authorService.Create(model);
+	    }
 
-        // DELETE: api/Author/5
-        public void Delete(int id)
-        {
-        }
-    }
+		// PUT: api/Author/5
+		public void Put(AuthorViewModel author)
+	    {
+		    var model = Mapper.Map<AuthorModel>(author);
+		    authorService.Update(model);
+	    }
+
+		// DELETE: api/Author/5
+		public void Delete(AuthorViewModel author)
+	    {
+		    var model = Mapper.Map<AuthorModel>(author);
+		    authorService.Delete(model);
+	    }
+	}
 }
