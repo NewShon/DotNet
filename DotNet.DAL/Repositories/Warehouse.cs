@@ -7,9 +7,9 @@ namespace DotNet.DAL.Repositories
 	{
 		public static List<Book> Books = new List<Book>
 		{
-			new Book {Id = 1, Name = "Anarchy of decay", Description = "Good book 1"},
-			new Book {Id = 2, Name = "Illusion of freedom", Description = "Good book 2"},
-			new Book {Id = 3, Name = "Legendary moonlight sculptor", Description = "Good book 3"}
+			new Book {BookId = 1, Name = "Anarchy of decay", Description = "Good book 1"},
+			new Book {BookId = 2, Name = "Illusion of freedom", Description = "Good book 2"},
+			new Book {BookId = 3, Name = "Legendary moonlight sculptor", Description = "Good book 3"}
 		};
 
 		public static List<Genre> Genres = new List<Genre>
