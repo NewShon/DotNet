@@ -29,11 +29,11 @@ namespace DotNet.DAL.Repositories
 			}
 		}
 
-		public Book Get(Book item)
+		public Book Get(string id)
 		{
 			try
 			{
-				return _context.Books.Find(x => x.BookId == item.BookId).FirstOrDefault();
+				return _context.Books.Find(x => x.BookId == id).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{

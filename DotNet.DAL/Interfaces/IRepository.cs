@@ -6,7 +6,7 @@ namespace DotNet.DAL.Interfaces
     {
         IEnumerable<T> GetAll();
 
-        T Get(T entity);
+        T Get(string id);
 
         void Add(T entity);
 

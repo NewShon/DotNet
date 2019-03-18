@@ -29,11 +29,11 @@ namespace DotNet.DAL.Repositories
 			}
 		}
 
-		public Author Get(Author item)
+		public Author Get(string id)
 		{
 			try
 			{
-				return _context.Authors.Find(x => x.AuthorId == item.AuthorId).FirstOrDefault();
+				return _context.Authors.Find(x => x.AuthorId == id).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{

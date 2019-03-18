@@ -25,10 +25,9 @@ namespace DotNet.WEB.Controllers
 		}
 
 		// GET: api/Genre/5
-		public GenreViewModel Get(GenreViewModel item)
+		public GenreViewModel Get(string id)
 		{
-			var model = Mapper.Map<GenreModel>(item);
-			var result = genreService.Get(model);
+			var result = genreService.Get(id);
 			return Mapper.Map<GenreViewModel>(result);
 		}
 

@@ -27,10 +27,9 @@ namespace DotNet.WEB.Controllers
 		}
 
 		// GET: api/Book/5
-		public BookViewModel Get(BookViewModel item)
+		public BookViewModel Get(string id)
 		{
-			var model = Mapper.Map<BookModel>(item);
-			var result = bookService.Get(model);
+			var result = bookService.Get(id);
 			return Mapper.Map<BookViewModel>(result);
 		}
 

@@ -25,10 +25,9 @@ namespace DotNet.WEB.Controllers
 		}
 
 		// GET: api/Author/5
-		public AuthorViewModel Get(AuthorViewModel item)
+		public AuthorViewModel Get(string id)
 		{
-			var model = Mapper.Map<AuthorModel>(item);
-			var result = authorService.Get(model);
+			var result = authorService.Get(id);
 			return Mapper.Map<AuthorViewModel>(result);
 		}
 

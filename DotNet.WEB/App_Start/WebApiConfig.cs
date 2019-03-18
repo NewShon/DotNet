@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Swagger.Net.Application;
 
 namespace DotNet.WEB
 {
@@ -17,7 +18,14 @@ namespace DotNet.WEB
 				defaults: new { id = RouteParameter.Optional }
 			);
 
-            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
+			config.Routes.MapHttpRoute(
+				name: "swagger_root",
+				routeTemplate: "",
+				defaults: null,
+				constraints: null,
+				handler: new RedirectHandler((message => message.RequestUri.ToString()), "swagger"));
+
+			GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
         }
     }
 }

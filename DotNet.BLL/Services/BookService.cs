@@ -29,10 +29,9 @@ namespace DotNet.BLL.Services
 		    bookRepository.Remove(model);
 	    }
 
-	    public BookModel Get(BookModel item)
+	    public BookModel Get(string id)
 	    {
-		    var model = Mapper.Map<Book>(item);
-		    var result = bookRepository.Get(model);
+		    var result = bookRepository.Get(id);
 		    return Mapper.Map<BookModel>(result);
 	    }
 

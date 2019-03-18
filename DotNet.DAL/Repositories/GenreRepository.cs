@@ -29,11 +29,11 @@ namespace DotNet.DAL.Repositories
 			}
 		}
 
-		public Genre Get(Genre item)
+		public Genre Get(string id)
 		{
 			try
 			{
-				return _context.Genres.Find(x => x.GenreId == item.GenreId).FirstOrDefault();
+				return _context.Genres.Find(x => x.GenreId == id).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{

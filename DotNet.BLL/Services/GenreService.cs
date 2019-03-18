@@ -29,10 +29,9 @@ namespace DotNet.BLL.Services
 		    genreRepository.Remove(model);
 	    }
 
-	    public GenreModel Get(GenreModel item)
+	    public GenreModel Get(string id)
 	    {
-		    var model = Mapper.Map<Genre>(item);
-		    var result = genreRepository.Get(model);
+		    var result = genreRepository.Get(id);
 		    return Mapper.Map<GenreModel>(result);
 	    }
 

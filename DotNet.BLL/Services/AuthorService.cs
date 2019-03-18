@@ -29,10 +29,9 @@ namespace DotNet.BLL.Services
 			authorRepository.Remove(model);
 		}
 
-		public AuthorModel Get(AuthorModel item)
+		public AuthorModel Get(string id)
 		{
-			var model = Mapper.Map<Author>(item);
-			var result = authorRepository.Get(model);
+			var result = authorRepository.Get(id);
 			return Mapper.Map<AuthorModel>(result);
 		}
 
