@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DotNet.DAL.Interfaces
 {
@@ -7,14 +6,12 @@ namespace DotNet.DAL.Interfaces
     {
         IEnumerable<T> GetAll();
 
-        T Get(Func<T, Boolean> predicate);
+        T Get(T entity);
 
-        IEnumerable<T> Find(Func<T, Boolean> predicate);
+        void Add(T entity);
 
-        void Create(T entity);
+	    void Update(T entity);
 
-        void Update(Func<T, Boolean> predicate, T entity);
-
-        void Delete(Func<T, Boolean> predicate);
+	    void Remove(T entity);
     }
 }

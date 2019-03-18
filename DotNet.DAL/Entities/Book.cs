@@ -9,17 +9,17 @@ namespace DotNet.DAL.Entities
         [BsonId]
         public ObjectId InternalId { get; set; }
 
-        [BsonElement("BookId")]
-        public int BookId { get; set; }
+        [BsonIgnore]
+        public string BookId { get; set; }
 
         [BsonElement("Name")]
         public string Name { get; set; }
 
         [BsonElement("Authors")]
-        public ICollection<Author> Authors{ get; set; }
+        public ICollection<int> Authors{ get; set; }
 
         [BsonElement("Genres")]
-        public ICollection<Genre> Genres { get; set; }
+        public ICollection<int> Genres { get; set; }
 
         [BsonElement("Description")]
         public string Description { get; set; }

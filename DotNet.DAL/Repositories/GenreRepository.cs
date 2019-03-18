@@ -1,49 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using DotNet.DAL.Context;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
+using MongoDB.Driver;
 
 namespace DotNet.DAL.Repositories
 {
 	public class GenreRepository : IRepository<Genre>
 	{
-		public void Create(Genre genre)
+		private readonly DBContext _context;
+
+		public GenreRepository()
 		{
-			Warehouse.Genres.Add(genre);
+			_context = new DBContext();
 		}
 
-		public void Delete(Func<Genre, bool> predicate)
-		{
-			var booksForDelete = Warehouse.Genres.Where(predicate);
-			foreach (var genre in booksForDelete)
-			{
-				Warehouse.Genres.Remove(genre);
-			}
-		}
-
-		public IEnumerable<Genre> Find(Func<Genre, bool> predicate)
-		{
-			return Warehouse.Genres.Where(predicate);
-		}
-
-		public Genre Get(Func<Genre, bool> predicate)
-		{
-			return Warehouse.Genres.Where(predicate).FirstOrDefault();
-		}
 
 		public IEnumerable<Genre> GetAll()
 		{
-			return Warehouse.Genres;
+			try
+			{
+				return _context.Genres.Find(_ => true).ToList();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
 		}
 
-		public void Update(Func<Genre, bool> predicate, Genre genre)
+		public Genre Get(Genre item)
 		{
-			var genreForUpdate = Warehouse.Genres.Where(predicate).FirstOrDefault();
-			if (genreForUpdate != null)
+			try
 			{
-				genreForUpdate.Name = genre.Name;
-				genreForUpdate.Books = genre.Books;
+				return _context.Genres.Find(x => x.GenreId == item.GenreId).FirstOrDefault();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public void Add(Genre item)
+		{
+			try
+			{
+				_context.Genres.InsertOne(item);
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public void Remove(Genre item)
+		{
+			try
+			{
+				_context.Genres.DeleteOne(Builders<Genre>.Filter.Eq(x => x.GenreId, item.GenreId));
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+		public void Update(Genre item)
+		{
+			try
+			{
+				_context.Genres.ReplaceOne(x => x.GenreId == item.GenreId, item, new UpdateOptions { IsUpsert = true });
+			}
+			catch (Exception ex)
+			{
+				throw ex;
 			}
 		}
 	}

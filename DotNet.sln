@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.WEB", "DotNet.WEB\DotNet.WEB.csproj", "{1EE31B58-FC10-4B6E-8545-1E934A50DC9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.BLL", "DotNet.BLL\DotNet.BLL.csproj", "{FDC2FB24-8955-4500-9254-4D7C21D06F60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet.BLL", "DotNet.BLL\DotNet.BLL.csproj", "{FDC2FB24-8955-4500-9254-4D7C21D06F60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet.DAL", "DotNet.DAL\DotNet.DAL.csproj", "{14DA75E9-A7BA-4D5E-A9A1-6F502B38ED0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet.DAL", "DotNet.DAL\DotNet.DAL.csproj", "{14DA75E9-A7BA-4D5E-A9A1-6F502B38ED0F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

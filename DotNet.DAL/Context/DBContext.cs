@@ -1,6 +1,7 @@
 ﻿using DotNet.DAL.Entities;
 using MongoDB.Driver;
 using System.Configuration;
+using System.Security.Authentication;
 
 namespace DotNet.DAL.Context
 {
@@ -10,19 +11,22 @@ namespace DotNet.DAL.Context
 
         public DBContext()
         {
-            var client = new MongoClient(ConfigurationManager.AppSettings["Server"]);
-            if (client != null)
-            {
-                _database = client.GetDatabase(ConfigurationManager.AppSettings["Database"]);
-            }
-        }
+			// Azure
+	        MongoClientSettings settings = MongoClientSettings.FromUrl(new MongoUrl(ConfigurationManager.AppSettings["AzureServer"]));
+	        settings.SslSettings = new SslSettings { EnabledSslProtocols = SslProtocols.Tls12 };
+	        var mongoClient = new MongoClient(settings);
+	        _database = mongoClient.GetDatabase(ConfigurationManager.AppSettings["AzureDatabase"]);
+			
 
-        public IMongoCollection<Book> Books
-        {
-            get
-            {
-                return _database.GetCollection<Book>("Books");
-            }
-        }
+			// Local
+			//var client = new MongoClient(ConfigurationManager.AppSettings["Server"]);
+			//_database = client.GetDatabase(ConfigurationManager.AppSettings["Database"]);
+		}
+
+		public IMongoCollection<Book> Books => _database.GetCollection<Book>("Books");
+
+		public IMongoCollection<Genre> Genres => _database.GetCollection<Genre>("Genres");
+
+		public IMongoCollection<Author> Authors => _database.GetCollection<Author>("Authors");
     }
 }

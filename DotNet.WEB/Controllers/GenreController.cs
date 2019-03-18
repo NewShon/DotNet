@@ -7,52 +7,50 @@ using DotNet.WEB.Models;
 
 namespace DotNet.WEB.Controllers
 {
-    public class GenreController : ApiController
-    {
+	public class GenreController : ApiController
+	{
+		private IGenreService genreService;
 
-        private IGenreService genreService;
-
-
-        public GenreController(IGenreService genreService)
-        {
-            this.genreService = genreService;
-        }
-
+		public GenreController(IGenreService genreService)
+		{
+			this.genreService = genreService;
+		}
 
 
 		// GET: api/Genre
-	    public IEnumerable<GenreViewModel> Get()
-	    {
-		    var result = genreService.GetAll();
-		    return Mapper.Map<List<GenreViewModel>>(result);
-	    }
+		public IEnumerable<GenreViewModel> Get()
+		{
+			var result = genreService.GetAll();
+			return Mapper.Map<List<GenreViewModel>>(result);
+		}
 
 		// GET: api/Genre/5
-		public GenreViewModel Get(int id)
-	    {
-		    var result = genreService.Get(id);
-		    return Mapper.Map<GenreViewModel>(result);
-	    }
+		public GenreViewModel Get(GenreViewModel item)
+		{
+			var model = Mapper.Map<GenreModel>(item);
+			var result = genreService.Get(model);
+			return Mapper.Map<GenreViewModel>(result);
+		}
 
 		// POST: api/Genre
-		public void Post(GenreViewModel genre)
-	    {
-		    var model = Mapper.Map<GenreModel>(genre);
-		    genreService.Create(model);
-	    }
+		public void Post(GenreViewModel item)
+		{
+			var model = Mapper.Map<GenreModel>(item);
+			genreService.Add(model);
+		}
 
 		// PUT: api/Genre/5
-		public void Put(GenreViewModel genre)
-	    {
-		    var model = Mapper.Map<GenreModel>(genre);
-		    genreService.Update(model);
-	    }
+		public void Put(GenreViewModel item)
+		{
+			var model = Mapper.Map<GenreModel>(item);
+			genreService.Update(model);
+		}
 
 		// DELETE: api/Genre/5
-		public void Delete(GenreViewModel genre)
-	    {
-		    var model = Mapper.Map<GenreModel>(genre);
-		    genreService.Delete(model);
-	    }
+		public void Delete(GenreViewModel item)
+		{
+			var model = Mapper.Map<GenreModel>(item);
+			genreService.Remove(model);
+		}
 	}
 }

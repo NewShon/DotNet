@@ -9,8 +9,7 @@ namespace DotNet.BLL.Services
 {
     public class GenreService : IGenreService
     {
-		private IRepository<Genre> genreRepository;
-
+	    private IRepository<Genre> genreRepository;
 
 	    public GenreService(IRepository<Genre> genreRepository)
 	    {
@@ -18,27 +17,22 @@ namespace DotNet.BLL.Services
 	    }
 
 
-
-	    public void Create(GenreModel genre)
+	    public void Add(GenreModel item)
 	    {
-		    var model = Mapper.Map<Genre>(genre);
-		    genreRepository.Create(model);
+		    var model = Mapper.Map<Genre>(item);
+		    genreRepository.Add(model);
 	    }
 
-	    public void Delete(GenreModel genre)
+	    public void Remove(GenreModel item)
 	    {
-		    genreRepository.Delete(x => x.Id == genre.Id);
+		    var model = Mapper.Map<Genre>(item);
+		    genreRepository.Remove(model);
 	    }
 
-	    public IEnumerable<GenreModel> Find(GenreModel genre)
+	    public GenreModel Get(GenreModel item)
 	    {
-		    var result = genreRepository.Find(x => x.Id == genre.Id);
-		    return Mapper.Map<IEnumerable<GenreModel>>(result);
-	    }
-
-	    public GenreModel Get(int id)
-	    {
-		    var result = genreRepository.Get(x => x.Id == id);
+		    var model = Mapper.Map<Genre>(item);
+		    var result = genreRepository.Get(model);
 		    return Mapper.Map<GenreModel>(result);
 	    }
 
@@ -48,10 +42,10 @@ namespace DotNet.BLL.Services
 		    return Mapper.Map<IEnumerable<GenreModel>>(result);
 	    }
 
-	    public void Update(GenreModel genre)
+	    public void Update(GenreModel item)
 	    {
-		    var model = Mapper.Map<Genre>(genre);
-		    genreRepository.Update(x => x.Id == genre.Id, model);
+		    var model = Mapper.Map<Genre>(item);
+		    genreRepository.Update(model);
 	    }
 	}
 }

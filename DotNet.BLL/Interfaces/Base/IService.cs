@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace DotNet.BLL.Interfaces.Base
 {
     public interface IService<T>
     {
-        IEnumerable<T> GetAll();
+		IEnumerable<T> GetAll();
 
-        T Get(int id);
+	    T Get(T entity);
 
-        IEnumerable<T> Find(T entity);
+	    void Add(T entity);
 
-        void Create(T entity);
+	    void Update(T entity);
 
-        void Update(T entity);
-
-        void Delete(T entity);
-    }
+	    void Remove(T entity);
+	}
 }
