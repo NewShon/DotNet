@@ -19,17 +19,17 @@ namespace DotNet.BLL.Services
 
 	    public void Add(BookModel item)
 	    {
-		    var model = Mapper.Map<Book>(item);
+            item.Id = null;
+            var model = Mapper.Map<Book>(item);
 		    bookRepository.Add(model);
 	    }
 
-	    public void Remove(BookModel item)
-	    {
-		    var model = Mapper.Map<Book>(item);
-		    bookRepository.Remove(model);
-	    }
+        public void Remove(string id)
+        {
+            bookRepository.Remove(id);
+        }
 
-	    public BookModel Get(string id)
+        public BookModel Get(string id)
 	    {
 		    var result = bookRepository.Get(id);
 		    return Mapper.Map<BookModel>(result);

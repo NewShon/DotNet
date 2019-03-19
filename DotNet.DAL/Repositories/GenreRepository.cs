@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DotNet.DAL.Context;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DotNet.DAL.Repositories
@@ -33,7 +34,7 @@ namespace DotNet.DAL.Repositories
 		{
 			try
 			{
-				return _context.Genres.Find(x => x.GenreId == id).FirstOrDefault();
+				return _context.Genres.Find(x => x.Id == ObjectId.Parse(id)).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{
@@ -53,11 +54,11 @@ namespace DotNet.DAL.Repositories
 			}
 		}
 
-		public void Remove(Genre item)
+		public void Remove(string id)
 		{
 			try
 			{
-				_context.Genres.DeleteOne(Builders<Genre>.Filter.Eq(x => x.GenreId, item.GenreId));
+				_context.Genres.DeleteOne(Builders<Genre>.Filter.Eq(x => x.Id, ObjectId.Parse(id)));
 			}
 			catch (Exception ex)
 			{
@@ -69,7 +70,7 @@ namespace DotNet.DAL.Repositories
 		{
 			try
 			{
-				_context.Genres.ReplaceOne(x => x.GenreId == item.GenreId, item, new UpdateOptions { IsUpsert = true });
+				_context.Genres.ReplaceOne(x => x.Id == item.Id, item);
 			}
 			catch (Exception ex)
 			{

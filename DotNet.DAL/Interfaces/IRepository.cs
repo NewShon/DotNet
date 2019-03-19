@@ -12,6 +12,6 @@ namespace DotNet.DAL.Interfaces
 
 	    void Update(T entity);
 
-	    void Remove(T entity);
+	    void Remove(string id);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DotNet.DAL.Context;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DotNet.DAL.Repositories
@@ -33,7 +34,7 @@ namespace DotNet.DAL.Repositories
 		{
 			try
 			{
-				return _context.Books.Find(x => x.BookId == id).FirstOrDefault();
+				return _context.Books.Find(x => x.Id == ObjectId.Parse(id)).FirstOrDefault();
 			}
 			catch (Exception ex)
 			{
@@ -53,11 +54,11 @@ namespace DotNet.DAL.Repositories
 			}
 		}
 
-		public void Remove(Book item)
+		public void Remove(string id)
 		{
 			try
 			{
-				_context.Books.DeleteOne(Builders<Book>.Filter.Eq(x => x.BookId, item.BookId));
+				_context.Books.DeleteOne(Builders<Book>.Filter.Eq(x => x.Id, ObjectId.Parse(id)));
 			}
 			catch (Exception ex)
 			{
@@ -69,7 +70,7 @@ namespace DotNet.DAL.Repositories
 		{
 			try
 			{
-				_context.Books.ReplaceOne(x => x.BookId == item.BookId, item, new UpdateOptions { IsUpsert = true });
+				_context.Books.ReplaceOne(x => x.Id == item.Id, item);
 			}
 			catch (Exception ex)
 			{

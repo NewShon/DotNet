@@ -48,10 +48,9 @@ namespace DotNet.WEB.Controllers
 		}
 
 		// DELETE: api/Book/5
-		public void Delete(BookViewModel item)
+		public void Delete(string id)
 		{
-			var model = Mapper.Map<BookModel>(item);
-			bookService.Remove(model);
+			bookService.Remove(id);
 		}
 	}
 }

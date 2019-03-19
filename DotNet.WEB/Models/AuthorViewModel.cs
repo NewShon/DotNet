@@ -4,10 +4,10 @@ namespace DotNet.WEB.Models
 {
     public class AuthorViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Name { get; set; }
 
-        public List<BookViewModel> Books { get; set; }
+        public List<string> Books { get; set; }
     }
 }

@@ -46,10 +46,9 @@ namespace DotNet.WEB.Controllers
 		}
 
 		// DELETE: api/Genre/5
-		public void Delete(GenreViewModel item)
+		public void Delete(string id)
 		{
-			var model = Mapper.Map<GenreModel>(item);
-			genreService.Remove(model);
+			genreService.Remove(id);
 		}
 	}
 }
