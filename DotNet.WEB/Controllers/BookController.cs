@@ -2,9 +2,13 @@
 using DotNet.BLL.Models;
 using DotNet.WEB.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 using System.Web.Http.Results;
+using System.Web.UI.WebControls;
 using AutoMapper;
 
 namespace DotNet.WEB.Controllers
@@ -20,10 +24,14 @@ namespace DotNet.WEB.Controllers
 
 
 		// GET: api/Book
-		public IEnumerable<BookViewModel> Get()
+		public HttpResponseMessage Get()
 		{
 			var result = bookService.GetAll();
-			return Mapper.Map<List<BookViewModel>>(result);
+			if (!result.Any())
+			{
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+			}
+			return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<BookViewModel>>(result));
 		}
 
 		// GET: api/Book/5

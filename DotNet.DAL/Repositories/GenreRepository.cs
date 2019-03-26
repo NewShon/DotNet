@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DotNet.DAL.Context;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
@@ -9,72 +8,37 @@ namespace DotNet.DAL.Repositories
 {
 	public class GenreRepository : IRepository<Genre>
 	{
-		private readonly DBContext _context;
+		private readonly MongoDBContext _context;
 
-		public GenreRepository()
+		public GenreRepository(MongoDBContext mongoDbContext)
 		{
-			_context = new DBContext();
+			_context = mongoDbContext;
 		}
 
 
 		public IEnumerable<Genre> GetAll()
 		{
-			try
-			{
-				return _context.Genres.Find(_ => true).ToList();
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			return _context.Genres.Find(_ => true).ToList();
 		}
 
 		public Genre Get(string id)
 		{
-			try
-			{
-				return _context.Genres.Find(x => x.GenreId == id).FirstOrDefault();
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			return _context.Genres.Find(x => x.GenreId == id).FirstOrDefault();
 		}
 
 		public void Add(Genre item)
 		{
-			try
-			{
-				_context.Genres.InsertOne(item);
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			_context.Genres.InsertOne(item);
 		}
 
 		public void Remove(Genre item)
 		{
-			try
-			{
-				_context.Genres.DeleteOne(Builders<Genre>.Filter.Eq(x => x.GenreId, item.GenreId));
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			_context.Genres.DeleteOne(Builders<Genre>.Filter.Eq(x => x.GenreId, item.GenreId));
 		}
 
 		public void Update(Genre item)
 		{
-			try
-			{
-				_context.Genres.ReplaceOne(x => x.GenreId == item.GenreId, item, new UpdateOptions { IsUpsert = true });
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			_context.Genres.ReplaceOne(x => x.GenreId == item.GenreId, item, new UpdateOptions { IsUpsert = true });
 		}
 	}
 }

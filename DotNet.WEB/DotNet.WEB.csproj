@@ -185,6 +185,7 @@
     </Content>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\DotNetWEB20190304055243 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\DotNetWEB20190318075819 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DotNet.DAL.Context;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
@@ -9,72 +8,38 @@ namespace DotNet.DAL.Repositories
 {
 	public class AuthorRepository : IRepository<Author>
 	{
-		private readonly DBContext _context;
+		private readonly MongoDBContext _context;
 
-		public AuthorRepository()
+		public AuthorRepository(MongoDBContext mongoDbContext)
 		{
-			_context = new DBContext();
+			_context = mongoDbContext;
 		}
 
 
 		public IEnumerable<Author> GetAll()
 		{
-			try
-			{
-				return _context.Authors.Find(_ => true).ToList();
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			return _context.Authors.Find(_ => true).ToList();
 		}
 
 		public Author Get(string id)
 		{
-			try
-			{
-				return _context.Authors.Find(x => x.AuthorId == id).FirstOrDefault();
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			return _context.Authors.Find(x => x.AuthorId == id).FirstOrDefault();
 		}
 
 		public void Add(Author item)
 		{
-			try
-			{
-				_context.Authors.InsertOne(item);
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			_context.Authors.InsertOne(item);
 		}
 
 		public void Remove(Author item)
 		{
-			try
-			{
-				_context.Authors.DeleteOne(Builders<Author>.Filter.Eq(x => x.AuthorId, item.AuthorId));
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			_context.Authors.DeleteOne(Builders<Author>.Filter.Eq(x => x.AuthorId, item.AuthorId));
 		}
 
 		public void Update(Author item)
 		{
-			try
-			{
-				_context.Authors.ReplaceOne(x => x.AuthorId == item.AuthorId, item, new UpdateOptions { IsUpsert = true });
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			_context.Authors.ReplaceOne(x => x.AuthorId == item.AuthorId, item, new UpdateOptions { IsUpsert = true });
+
 		}
 	}
 }
