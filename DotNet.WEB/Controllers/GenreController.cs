@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
 using DotNet.WEB.Models;
+using System.Net;
+using System.Net.Http;
+using System.Linq;
 
 namespace DotNet.WEB.Controllers
 {
@@ -18,37 +21,56 @@ namespace DotNet.WEB.Controllers
 
 
 		// GET: api/Genre
-		public IEnumerable<GenreViewModel> Get()
+		public HttpResponseMessage Get()
 		{
-			var result = genreService.GetAll();
-			return Mapper.Map<List<GenreViewModel>>(result);
-		}
+            var result = genreService.GetAll();
+            if (!result.Any())
+            {
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<BookViewModel>>(result));
+        }
 
 		// GET: api/Genre/5
-		public GenreViewModel Get(string id)
+		public HttpResponseMessage Get(string id)
 		{
-			var result = genreService.Get(id);
-			return Mapper.Map<GenreViewModel>(result);
-		}
+            var result = genreService.Get(id);
+            if (result == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<BookViewModel>(result));
+        }
 
 		// POST: api/Genre
-		public void Post(GenreViewModel item)
+		public HttpResponseMessage Post(GenreViewModel item)
 		{
-			var model = Mapper.Map<GenreModel>(item);
-			genreService.Add(model);
-		}
+            if (ModelState.IsValid)
+            {
+                var model = Mapper.Map<GenreModel>(item);
+                genreService.Add(model);
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
 
 		// PUT: api/Genre/5
-		public void Put(GenreViewModel item)
+		public HttpResponseMessage Put(GenreViewModel item)
 		{
-			var model = Mapper.Map<GenreModel>(item);
-			genreService.Update(model);
-		}
+            if (ModelState.IsValid)
+            {
+                var model = Mapper.Map<GenreModel>(item);
+                genreService.Update(model);
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
 
 		// DELETE: api/Genre/5
-		public void Delete(string id)
+		public HttpResponseMessage Delete(string id)
 		{
 			genreService.Remove(id);
-		}
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
 	}
 }

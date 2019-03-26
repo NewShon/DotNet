@@ -26,36 +26,51 @@ namespace DotNet.WEB.Controllers
 			var result = bookService.GetAll();
 			if (!result.Any())
 			{
-				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+				return new HttpResponseMessage(HttpStatusCode.NoContent);
 			}
 			return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<BookViewModel>>(result));
 		}
 
 		// GET: api/Book/5
-		public BookViewModel Get(string id)
+		public HttpResponseMessage Get(string id)
 		{
 			var result = bookService.Get(id);
-			return Mapper.Map<BookViewModel>(result);
+            if (result == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<BookViewModel>(result));
 		}
 
 		// POST: api/Book
-		public void Post(BookViewModel book)
+		public HttpResponseMessage Post(BookViewModel book)
 		{
-			var model = Mapper.Map<BookModel>(book);
-			bookService.Add(model);
-		}
+            if (ModelState.IsValid)
+            {
+                var model = Mapper.Map<BookModel>(book);
+                bookService.Add(model);
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
 
-		// PUT: api/Book/5
-		public void Put(BookViewModel item)
+        // PUT: api/Book/5
+        public HttpResponseMessage Put(BookViewModel item)
 		{
-			var model = Mapper.Map<BookModel>(item);
-			bookService.Update(model);
-		}
+            if (ModelState.IsValid)
+            {
+                var model = Mapper.Map<BookModel>(item);
+                bookService.Update(model);
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
 
-		// DELETE: api/Book/5
-		public void Delete(string id)
+        // DELETE: api/Book/5
+        public HttpResponseMessage Delete(string id)
 		{
 			bookService.Remove(id);
-		}
-	}
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+    }
 }

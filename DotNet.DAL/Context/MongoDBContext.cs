@@ -11,7 +11,7 @@ namespace DotNet.DAL.Context
 
 		public MongoDBContext()
 		{
-#if DEBUG
+#if (DEBUG)
 			// Local
 			var client = new MongoClient(ConfigurationManager.AppSettings["LocalServer"]);
 			_database = client.GetDatabase(ConfigurationManager.AppSettings["LocalDatabase"]);

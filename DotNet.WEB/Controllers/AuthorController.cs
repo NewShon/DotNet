@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using DotNet.BLL.Interfaces;
@@ -18,37 +21,56 @@ namespace DotNet.WEB.Controllers
 
 
 		// GET: api/Author
-		public IEnumerable<AuthorViewModel> Get()
+		public HttpResponseMessage Get()
 		{
-			var result = authorService.GetAll();
-			return Mapper.Map<List<AuthorViewModel>>(result);
-		}
+            var result = authorService.GetAll();
+            if (!result.Any())
+            {
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<List<BookViewModel>>(result));
+        }
 
 		// GET: api/Author/5
-		public AuthorViewModel Get(string id)
+		public HttpResponseMessage Get(string id)
 		{
-			var result = authorService.Get(id);
-			return Mapper.Map<AuthorViewModel>(result);
-		}
+            var result = authorService.Get(id);
+            if (result == null)
+            {
+                return new HttpResponseMessage(HttpStatusCode.NoContent);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, Mapper.Map<BookViewModel>(result));
+        }
 
 		// POST: api/Author
-		public void Post(AuthorViewModel item)
+		public HttpResponseMessage Post(AuthorViewModel item)
 		{
-			var model = Mapper.Map<AuthorModel>(item);
-			authorService.Add(model);
-		}
+            if (ModelState.IsValid)
+            {
+                var model = Mapper.Map<AuthorModel>(item);
+                authorService.Add(model);
+                return Request.CreateResponse(HttpStatusCode.Created);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
 
-		// PUT: api/Author/5
-		public void Put(AuthorViewModel author)
+        // PUT: api/Author/5
+        public HttpResponseMessage Put(AuthorViewModel author)
 		{
-			var model = Mapper.Map<AuthorModel>(author);
-			authorService.Update(model);
-		}
+            if (ModelState.IsValid)
+            {
+                var model = Mapper.Map<AuthorModel>(author);
+                authorService.Update(model);
+                return Request.CreateResponse(HttpStatusCode.NoContent);
+            }
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
 
-		// DELETE: api/Author/5
-		public void Delete(string id)
+        // DELETE: api/Author/5
+        public HttpResponseMessage Delete(string id)
 		{
 			authorService.Remove(id);
-		}
-	}
+            return Request.CreateResponse(HttpStatusCode.NoContent);
+        }
+    }
 }
