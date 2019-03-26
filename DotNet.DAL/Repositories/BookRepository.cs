@@ -2,17 +2,18 @@
 using DotNet.DAL.Context;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DotNet.DAL.Repositories
 {
 	public class BookRepository : IRepository<Book>
 	{
-		private readonly MongoDBContext _context;
+		private readonly IDBContext _context;
 
-		public BookRepository(MongoDBContext mongoDbContext)
+		public BookRepository(IDBContext dbContext)
 		{
-			_context = mongoDbContext;
+			_context =dbContext;
 		}
 
 
@@ -23,7 +24,7 @@ namespace DotNet.DAL.Repositories
 
 		public Book Get(string id)
 		{
-			return _context.Books.Find(x => x.BookId == id).FirstOrDefault();
+			return _context.Books.Find(x => x.Id == ObjectId.Parse(id)).FirstOrDefault();
 		}
 
 		public void Add(Book item)
@@ -31,14 +32,14 @@ namespace DotNet.DAL.Repositories
 			_context.Books.InsertOne(item);
 		}
 
-		public void Remove(Book item)
+		public void Remove(string id)
 		{
-			_context.Books.DeleteOne(Builders<Book>.Filter.Eq(x => x.BookId, item.BookId));
+			_context.Books.DeleteOne(Builders<Book>.Filter.Eq(x => x.Id, ObjectId.Parse(id)));
 		}
 
 		public void Update(Book item)
 		{
-			_context.Books.ReplaceOne(x => x.BookId == item.BookId, item, new UpdateOptions { IsUpsert = true });
+			_context.Books.ReplaceOne(x => x.Id == item.Id, item, new UpdateOptions { IsUpsert = true });
 		}
 	}
 }

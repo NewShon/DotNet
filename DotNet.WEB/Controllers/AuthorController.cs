@@ -46,10 +46,9 @@ namespace DotNet.WEB.Controllers
 		}
 
 		// DELETE: api/Author/5
-		public void Delete(AuthorViewModel author)
+		public void Delete(string id)
 		{
-			var model = Mapper.Map<AuthorModel>(author);
-			authorService.Remove(model);
+			authorService.Remove(id);
 		}
 	}
 }

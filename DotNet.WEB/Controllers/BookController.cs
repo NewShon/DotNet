@@ -6,9 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
-using System.Web.Http.Results;
-using System.Web.UI.WebControls;
 using AutoMapper;
 
 namespace DotNet.WEB.Controllers
@@ -56,10 +53,9 @@ namespace DotNet.WEB.Controllers
 		}
 
 		// DELETE: api/Book/5
-		public void Delete(BookViewModel item)
+		public void Delete(string id)
 		{
-			var model = Mapper.Map<BookModel>(item);
-			bookService.Remove(model);
+			bookService.Remove(id);
 		}
 	}
 }

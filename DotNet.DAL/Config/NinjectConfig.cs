@@ -15,17 +15,9 @@ namespace DotNet.DAL.Config
             kernel.Bind<IRepository<Author>>().To<AuthorRepository>();
             kernel.Bind<IRepository<Genre>>().To<GenreRepository>();
 
-#if DEBUG
-			// Azure
-	        var server = ConfigurationManager.AppSettings["AzureServer"];
-	        var databse = ConfigurationManager.AppSettings["AzureDatabase"];
-#elif (!DEBUG)
-			var server = ConfigurationManager.AppSettings["AzureServer"];
-	        var databse = ConfigurationManager.AppSettings["AzureDatabase"];
-#endif
 
-			kernel.Bind<MongoDBContext>().To<MongoDBContext>()
-				.WithPropertyValue(server, databse);
-		}
+
+	        kernel.Bind<IDBContext>().To<MongoDBContext>();
+        }
 	}
 }

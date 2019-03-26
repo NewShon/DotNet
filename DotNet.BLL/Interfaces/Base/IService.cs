@@ -12,6 +12,6 @@ namespace DotNet.BLL.Interfaces.Base
 
 	    void Update(T entity);
 
-	    void Remove(T entity);
+	    void Remove(string id);
 	}
 }

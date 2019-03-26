@@ -19,14 +19,14 @@ namespace DotNet.BLL.Services
 
 		public void Add(AuthorModel item)
 		{
+            item.Id = null;
 			var model = Mapper.Map<Author>(item);
 			authorRepository.Add(model);
 		}
 
-		public void Remove(AuthorModel item)
+		public void Remove(string id)
 		{
-			var model = Mapper.Map<Author>(item);
-			authorRepository.Remove(model);
+			authorRepository.Remove(id);
 		}
 
 		public AuthorModel Get(string id)

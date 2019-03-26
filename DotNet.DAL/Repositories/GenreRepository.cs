@@ -2,17 +2,18 @@
 using DotNet.DAL.Context;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DotNet.DAL.Repositories
 {
 	public class GenreRepository : IRepository<Genre>
 	{
-		private readonly MongoDBContext _context;
+		private readonly IDBContext _context;
 
-		public GenreRepository(MongoDBContext mongoDbContext)
+		public GenreRepository(IDBContext dbContext)
 		{
-			_context = mongoDbContext;
+			_context = dbContext;
 		}
 
 
@@ -23,7 +24,7 @@ namespace DotNet.DAL.Repositories
 
 		public Genre Get(string id)
 		{
-			return _context.Genres.Find(x => x.GenreId == id).FirstOrDefault();
+			return _context.Genres.Find(x => x.Id == ObjectId.Parse(id)).FirstOrDefault();
 		}
 
 		public void Add(Genre item)
@@ -31,14 +32,14 @@ namespace DotNet.DAL.Repositories
 			_context.Genres.InsertOne(item);
 		}
 
-		public void Remove(Genre item)
+		public void Remove(string id)
 		{
-			_context.Genres.DeleteOne(Builders<Genre>.Filter.Eq(x => x.GenreId, item.GenreId));
+			_context.Genres.DeleteOne(Builders<Genre>.Filter.Eq(x => x.Id, ObjectId.Parse(id)));
 		}
 
 		public void Update(Genre item)
 		{
-			_context.Genres.ReplaceOne(x => x.GenreId == item.GenreId, item, new UpdateOptions { IsUpsert = true });
+			_context.Genres.ReplaceOne(x => x.Id == item.Id, item, new UpdateOptions { IsUpsert = true });
 		}
 	}
 }

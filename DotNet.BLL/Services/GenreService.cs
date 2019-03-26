@@ -19,17 +19,17 @@ namespace DotNet.BLL.Services
 
 	    public void Add(GenreModel item)
 	    {
-		    var model = Mapper.Map<Genre>(item);
+            item.Id = null;
+            var model = Mapper.Map<Genre>(item);
 		    genreRepository.Add(model);
 	    }
 
-	    public void Remove(GenreModel item)
-	    {
-		    var model = Mapper.Map<Genre>(item);
-		    genreRepository.Remove(model);
-	    }
+        public void Remove(string id)
+        {
+            genreRepository.Remove(id);
+        }
 
-	    public GenreModel Get(string id)
+        public GenreModel Get(string id)
 	    {
 		    var result = genreRepository.Get(id);
 		    return Mapper.Map<GenreModel>(result);

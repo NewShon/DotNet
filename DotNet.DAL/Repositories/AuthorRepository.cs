@@ -2,17 +2,18 @@
 using DotNet.DAL.Context;
 using DotNet.DAL.Entities;
 using DotNet.DAL.Interfaces;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace DotNet.DAL.Repositories
 {
 	public class AuthorRepository : IRepository<Author>
 	{
-		private readonly MongoDBContext _context;
+		private readonly IDBContext _context;
 
-		public AuthorRepository(MongoDBContext mongoDbContext)
+		public AuthorRepository(IDBContext dbContext)
 		{
-			_context = mongoDbContext;
+			_context = dbContext;
 		}
 
 
@@ -23,7 +24,7 @@ namespace DotNet.DAL.Repositories
 
 		public Author Get(string id)
 		{
-			return _context.Authors.Find(x => x.AuthorId == id).FirstOrDefault();
+			return _context.Authors.Find(x => x.Id == ObjectId.Parse(id)).FirstOrDefault();
 		}
 
 		public void Add(Author item)
@@ -31,14 +32,14 @@ namespace DotNet.DAL.Repositories
 			_context.Authors.InsertOne(item);
 		}
 
-		public void Remove(Author item)
+		public void Remove(string id)
 		{
-			_context.Authors.DeleteOne(Builders<Author>.Filter.Eq(x => x.AuthorId, item.AuthorId));
+			_context.Authors.DeleteOne(Builders<Author>.Filter.Eq(x => x.Id, ObjectId.Parse(id)));
 		}
 
 		public void Update(Author item)
 		{
-			_context.Authors.ReplaceOne(x => x.AuthorId == item.AuthorId, item, new UpdateOptions { IsUpsert = true });
+			_context.Authors.ReplaceOne(x => x.Id == item.Id, item, new UpdateOptions { IsUpsert = true });
 
 		}
 	}
